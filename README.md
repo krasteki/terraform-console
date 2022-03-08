@@ -59,3 +59,34 @@ III. Secure bucket
 ```
 >$ chomp(data.http.local_ip.body)
 ```
+
+IV. Add local value and bucket policy
+
+1. The file `bucket_policy.json` in the example repository contains a policy based on an [example from AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html#example-bucket-policies-use-case-3). This policy restricts access to a bucket based on the source IP address.
+
+2. Add a locals block to `main.tf`, defining a `local` value to store the IP address.
+
+
+```
+$ echo 'jsondecode(file("bucket_policy.json"))' | terraform console
+```
+
+3. Add the `aws_s3_bucket_policy` resource to `main.tf`, which is based on this map you decoded from `bucket_policy.json` and replaces placeholder values with references to your local IP address and bucket.
+
+
+4. Load data into bucket
+```
+$ aws s3 sync data/ s3://$(terraform output -raw s3_bucket_name)/
+$ aws s3 ls s3://$(terraform output -raw s3_bucket_name)
+```
+
+V. Clean up the infrastructure
+
+```
+# terraform destroy
+```
+
+
+
+
+
