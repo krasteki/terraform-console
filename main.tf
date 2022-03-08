@@ -4,7 +4,12 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.0.0"
     }
+    http = {
+      source  = "hashicorp/http"
+      version = "2.1.0"
+    }
   }
+
 
   required_version = ">= 1.0.5"
 }
@@ -39,4 +44,8 @@ resource "aws_s3_bucket_acl" "data" {
 
 data "aws_s3_objects" "data_bucket" {
   bucket = aws_s3_bucket.data.bucket
+}
+
+data "http" "local_ip" {
+  url = "http://ipv4.icanhazip.com"
 }
