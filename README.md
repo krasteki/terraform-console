@@ -55,10 +55,11 @@ III. Secure bucket
 3. `$ terraform init` and `$ terraform apply`
 4. In `terraform console` data source `data.http.local_ip`
 - The console will print out the state of the `data.http` resource's `local_ip` attribute.
-- The body of the response from `ipv4.icanhazip.com` is a multi-line string which includes your IP address. Use the built-in `[chomp() function](https://www.terraform.io/language/functions/chomp)` to remove whitespace surrounding the IP address.
+- The body of the response from `ipv4.icanhazip.com` is a multi-line string which includes your IP address. Use the built-in [chomp() function](https://www.terraform.io/language/functions/chomp) to remove whitespace surrounding the IP address.
 ```
 >$ chomp(data.http.local_ip.body)
 ```
+
 
 IV. Add local value and bucket policy
 
@@ -85,8 +86,5 @@ V. Clean up the infrastructure
 ```
 # terraform destroy
 ```
-
-
-
 
 
